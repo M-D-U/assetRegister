@@ -1,0 +1,49 @@
+<!-- my-profile.component.html -->
+<div class="container">
+    <h2>My Profile</h2>
+    
+    <!-- User Information -->
+    <div class="user-info">
+      <img src="../../../assets/HCI-Logo-Blue-01.jpg" alt="User Avatar">
+      <div>
+        <h3>John </h3>
+        <p>Doe</p>
+      </div>
+    </div>
+    
+    <!-- Personal Information -->
+    <h3>Personal Information</h3>
+    <form>
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName" class="form-control"  disabled placeholder="John Doe">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" class="form-control" placeholder="+27139478000">
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea id="address" name="address" class="form-control" placeholder="Plot 8, Loopspruit, KwaMlanga, 1022"></textarea>
+      </div>
+    </form>
+    
+    <!-- Change Password -->
+    <h3>Change Password</h3>
+    <form>
+      <div class="form-group">
+        <label for="currentPassword">Current Password</label>
+        <input type="password" id="currentPassword" name="currentPassword" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword" name="newPassword" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm New Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control">
+      </div>
+      <button type="button" class="btn btn-primary" (click)="changePassword()">Change Password</button>
+    </form>
+  </div>
+  
