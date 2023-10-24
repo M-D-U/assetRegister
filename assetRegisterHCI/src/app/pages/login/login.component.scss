@@ -1,0 +1,17 @@
+.login-card {
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  
+    .logo {
+      max-width: 100px;
+      margin: 0 auto;
+      display: block;
+    }
+  
+    form {
+      margin-top: 20px;
+    }
+  }
+  
