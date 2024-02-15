@@ -1,14 +1,20 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+declare var bootstrap: any;
 @Component({
   selector: 'app-asset-register',
   templateUrl: './asset-register.component.html',
   styleUrls: ['./asset-register.component.scss']
 })
 export class AssetRegisterComponent {
+
+  isModalOpen: boolean = false;
+  newDeviceName: string = '';
+  
   userDeviceData = [
     {
+      imageLink: './../../../assets/nordwood-themes-_sg8nXmpWDM-unsplash.jpg',
       user: 'John Doe',
       serial: 'SN12345',
       deviceId: 'DEVICE001',
@@ -17,10 +23,18 @@ export class AssetRegisterComponent {
       status: 'In Use',
       deviceType: 'Laptop',
       department: 'IT Department',
+      purchaseDate: '2023-10-03',
       lastMaintenanceDate: '2023-10-01',
-      comment: 'Performed routine maintenance.'
+      serviceHistory: [
+        {
+          date: '2023-10-01',
+          agent: 'Service Technician 1',
+          comments: 'Performed routine maintenance.'
+        }
+      ]
     },
     {
+      imageLink: './../../../assets/nordwood-themes-_sg8nXmpWDM-unsplash.jpg',
       user: 'Jane Smith',
       serial: 'SN56789',
       deviceId: 'DEVICE002',
@@ -29,10 +43,18 @@ export class AssetRegisterComponent {
       status: 'In Use',
       deviceType: 'Desktop',
       department: 'HR Department',
+      purchaseDate: '2023-10-03',
       lastMaintenanceDate: '2023-09-15',
-      comment: 'Replaced faulty hard drive.'
+      serviceHistory: [
+        {
+          date: '2023-09-15',
+          agent: 'Service Technician 2',
+          comments: 'Replaced faulty hard drive.'
+        }
+      ]
     },
     {
+      imageLink: './../../../assets/nordwood-themes-_sg8nXmpWDM-unsplash.jpg',
       user: 'Bob Johnson',
       serial: 'SN98765',
       deviceId: 'DEVICE003',
@@ -41,10 +63,18 @@ export class AssetRegisterComponent {
       status: 'In Use',
       deviceType: 'Tablet',
       department: 'Finance Department',
+      purchaseDate: '2023-10-03',
       lastMaintenanceDate: '2023-09-20',
-      comment: 'Updated software and security patches.'
+      serviceHistory: [
+        {
+          date: '2023-09-20',
+          agent: 'Service Technician 3',
+          comments: 'Updated software and security patches.'
+        }
+      ]
     },
     {
+      imageLink: './../../../assets/nordwood-themes-_sg8nXmpWDM-unsplash.jpg',
       user: 'Alice Brown',
       serial: 'SN24680',
       deviceId: 'DEVICE004',
@@ -53,10 +83,18 @@ export class AssetRegisterComponent {
       status: 'In Use',
       deviceType: 'Laptop',
       department: 'Marketing Department',
+      purchaseDate: '2023-10-03',
       lastMaintenanceDate: '2023-09-10',
-      comment: 'Cleaned and optimized performance.'
+      serviceHistory: [
+        {
+          date: '2023-09-10',
+          agent: 'Service Technician 4',
+          comments: 'Cleaned and optimized performance.'
+        }
+      ]
     },
     {
+      imageLink: './../../../assets/nordwood-themes-_sg8nXmpWDM-unsplash.jpg',
       user: 'Mike Wilson',
       serial: 'SN13579',
       deviceId: 'DEVICE005',
@@ -65,70 +103,19 @@ export class AssetRegisterComponent {
       status: 'In Use',
       deviceType: 'Monitor',
       department: 'IT Department',
+      purchaseDate: '2023-10-03',
       lastMaintenanceDate: '2023-10-05',
-      comment: 'Calibrated display settings.'
-    },
-    {
-      user: 'Emily Davis',
-      serial: 'SN86420',
-      deviceId: 'DEVICE006',
-      deviceMake: 'Samsung Smartphone',
-      condition: 'Fair',
-      status: 'In Use',
-      deviceType: 'Smartphone',
-      department: 'Sales Department',
-      lastMaintenanceDate: '2023-09-30',
-      comment: 'Replaced damaged screen.'
-    },
-    {
-      user: 'David Lee',
-      serial: 'SN97531',
-      deviceId: 'DEVICE007',
-      deviceMake: 'HP Printer',
-      condition: 'Good',
-      status: 'In Use',
-      deviceType: 'Printer',
-      department: 'IT Department',
-      lastMaintenanceDate: '2023-10-02',
-      comment: 'Replaced ink cartridges.'
-    },
-    {
-      user: 'Linda Taylor',
-      serial: 'SN75319',
-      deviceId: 'DEVICE008',
-      deviceMake: 'Microsoft Surface Pro',
-      condition: 'Excellent',
-      status: 'In Use',
-      deviceType: 'Tablet',
-      department: 'Finance Department',
-      lastMaintenanceDate: '2023-09-28',
-      comment: 'Updated operating system.'
-    },
-    {
-      user: 'Kevin Clark',
-      serial: 'SN64280',
-      deviceId: 'DEVICE009',
-      deviceMake: 'Dell Laptop',
-      condition: 'Fair',
-      status: 'In Use',
-      deviceType: 'Laptop',
-      department: 'HR Department',
-      lastMaintenanceDate: '2023-09-25',
-      comment: 'Replaced keyboard.'
-    },
-    {
-      user: 'Sarah White',
-      serial: 'SN52873',
-      deviceId: 'DEVICE010',
-      deviceMake: 'Epson Scanner',
-      condition: 'Good',
-      status: 'In Use',
-      deviceType: 'Scanner',
-      department: 'Admin Department',
-      lastMaintenanceDate: '2023-10-03',
-      comment: 'Cleaned scanner glass.'
+      serviceHistory: [
+        {
+          date: '2023-10-05',
+          agent: 'Service Technician 5',
+          comments: 'Calibrated display settings.'
+        }
+      ]
     }
   ];
+  
+  
   
   constructor( private router:Router) {
   }
@@ -160,5 +147,22 @@ export class AssetRegisterComponent {
     
     logout(){
       this.router.navigate(['login'])
+    }
+
+    maintain(){
+      console.log('test');
+      
+    }
+
+    openOffcanvas() {
+      const offcanvasElement = document.getElementById('maintainDeviceOffcanvas');
+      const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+      offcanvas.show();
+    }
+  
+    closeOffcanvas() {
+      const offcanvasElement = document.getElementById('maintainDeviceOffcanvas');
+      const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+      offcanvas.hide();
     }
 }

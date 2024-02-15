@@ -9,6 +9,7 @@ import { AssetRegisterComponent } from './pages/asset-register/asset-register.co
 import { ReportsComponent } from './pages/reports/reports.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+// import { ReportsPipe } from './pages/reports.pipe';
 // import { FormsModule } from '@angular/forms';
 // import { ReactiveFormsModule } from '@angular/forms';
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';

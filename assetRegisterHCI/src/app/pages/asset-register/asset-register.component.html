@@ -34,50 +34,106 @@
   </ul>
 </nav>
 
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-6">
-        <h2>User Device Information</h2> 
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6">
+      <h2>User Device Information</h2> 
+    </div>
+    <div class="col-6">
+      <button class="btn btn-success ml-auto" style="float: inline-end;" >Add New Device</button>
+    </div>
+  </div>
+  
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Avatar</th> <!-- Add the new column for Avatar -->
+        <th>User</th>
+        <th>Serial</th>
+        <th>Device ID</th>
+        <th>Device Make</th>
+        <th>Condition</th>
+        <th>Status</th>
+        <th>Device Type</th>
+        <th>Department</th>
+        <th>Last Maintenance Date</th>
+        <th>Purchase Date</th> <!-- Include Purchase Date column -->
+        <!-- <th>Comment</th> -->
+        <th>Modify</th>
+      </tr>
+    </thead>
+   <!-- Table structure -->
+  <tbody>
+    <tr *ngFor="let item of userDeviceData">
+      <!-- Display avatar -->
+      <td>
+        <!-- <img src="./../../../assets/nordwood-themes-_sg8nXmpWDM-unsplash.jpg" alt="Avatar" style="width: 50px; height: 50px;"> -->
+        <img [src]="item.imageLink" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%;"></td>
+      <!-- Display other device information -->
+      <td>{{ item.user }}</td>
+      <td>{{ item.serial }}</td>
+      <td>{{ item.deviceId }}</td>
+      <td>{{ item.deviceMake }}</td>
+      <td>{{ item.condition }}</td>
+      <td>{{ item.status }}</td>
+      <td>{{ item.deviceType }}</td>
+      <td>{{ item.department }}</td>
+      <td>{{ item.lastMaintenanceDate }}</td>
+      <td>{{ item.purchaseDate }}</td>
+      <!-- Display service history -->
+      <!-- <td>
+        <ul>
+          <li *ngFor="let service of item.serviceHistory">
+            <strong>Date:</strong> {{ service.date }}<br>
+            <strong>Agent:</strong> {{ service.agent }}<br>
+            <strong>Comments:</strong> {{ service.comments }}
+          </li>
+        </ul>
+      </td> -->
+      <td><button class="btn btn-info ml-auto" style="float: inline-end;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Maintain</button></td>
+    </tr>
+  </tbody>
+
+  </table>
+
+  <!-- <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+    Link with href
+  </a> -->
+  <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+    Button with data-bs-target
+  </button> -->
+  
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Maintanance</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div>
+        Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
       </div>
-      <div class="col-6">
-        <button class="btn btn-success ml-auto" style="float: inline-end;">Add New Device</button>
+      <div class="dropdown mt-3">
+        <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
+          Category
+        </button>
+        <!-- Dropdown menu for maintenance options -->
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" >Software Updates and Patches</a></li>
+          <li><a class="dropdown-item" href="#">Hardware Inspection and Cleaning</a></li>
+          <li><a class="dropdown-item" href="#">Battery Health Check</a></li>
+          <li><a class="dropdown-item" href="#">Performance Optimization</a></li>
+          <li><a class="dropdown-item" href="#">Data Backup and Recovery</a></li>
+          <li><a class="dropdown-item" href="#">Security Audits and Vulnerability Assessments</a></li>
+          <li><a class="dropdown-item" href="#">Hardware Upgrades</a></li>
+          <li><a class="dropdown-item" href="#">Environmental Monitoring</a></li>
+          <li><a class="dropdown-item" href="#">User Training and Support</a></li>
+          <li><a class="dropdown-item" href="#">Documentation and Asset Management</a></li>
+        </ul>
+
       </div>
     </div>
-    
-
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>User</th>
-          <th>Serial</th>
-          <th>Device ID</th>
-          <th>Device Make</th>
-          <th>Condition</th>
-          <th>Status</th>
-          <th>Device Type</th>
-          <th>Department</th>
-          <th>Last Maintenance Date</th>
-          <th>Comment</th>
-          <th>Modify</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of userDeviceData">
-          <td>{{ item.user }}</td>
-          <td>{{ item.serial }}</td>
-          <td>{{ item.deviceId }}</td>
-          <td>{{ item.deviceMake }}</td>
-          <td>{{ item.condition }}</td>
-          <td>{{ item.status }}</td>
-          <td>{{ item.deviceType }}</td>
-          <td>{{ item.department }}</td>
-          <td>{{ item.lastMaintenanceDate }}</td>
-          <td>{{ item.comment }}</td>
-          <th><button class="btn btn-info ml-auto" style="float: inline-end;">Maintain</button></th>
-        </tr>
-      </tbody>
-    </table>
-    
   </div>
+</div>
+
   
   
