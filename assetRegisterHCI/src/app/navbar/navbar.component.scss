@@ -1,0 +1,51 @@
+/* Navbar */
+.header {
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+  }
+  
+  .navbar-brand {
+    color: black;
+  }
+  
+  .navbar-toggler-icon {
+    background-color: black;
+  }
+  
+  .navbar-nav .nav-link {
+    color: black;
+
+  }
+  
+.logo{
+    height: 90px;
+    width: 150px;
+}
+  
+  
+/* This class defines the styles for links */
+.link {
+  cursor: pointer;
+}
+
+/* This class defines the styles for links when hovered over */
+.link:hover {
+  font-weight: bold; // Add bold font
+  text-decoration: underline; /* Optional: You can add underlines on hover */
+}
+
+.link.active {
+  color: yellow; // Change the text color
+  font-weight: bold; // Add bold font
+}
+
+.logout{
+  margin-right: 8px;
+}
+
+.active{
+  // font-size: larger;
+  // color: yellow !important;
+  font-weight: 700;
+  color: gray;
+}
