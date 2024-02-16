@@ -6,6 +6,8 @@
   <title>HCI Palesa</title>
 </head>
 <body>
+  <app-navbar *ngIf="!isLoginPage"></app-navbar>
+
   <router-outlet></router-outlet>
 </body>
 </html>
