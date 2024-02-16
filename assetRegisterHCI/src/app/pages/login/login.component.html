@@ -1,20 +1,20 @@
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="card login-card">
-      <div class="card-body">
-        <img src="../../../assets/HCI-Logo-Blue-01.jpg" alt="Company Logo" class="logo img-fluid mb-4">
-        <form>
-          <div class="form-group">
-            <!-- <label for="email">Email</label> -->
-            <input type="email" id="email" class="form-control" placeholder="Enter your email" formControlName="email">
-          </div>
-          <div class="form-group mt-3">
-            <!-- <label for="password">Password</label> -->
-            <input type="password" id="password" class="form-control" placeholder="Enter your password" formControlName="password">
-          </div>
-          <button type="submit" class="btn btn-primary btn-block mt-3 w-100" (click)="login()">Login</button>
-          <a href="http://">Forgot password</a>
-        </form>
-      </div>
+<div class="container flex justify-center items-center min-h-screen">
+  <div class="card login-card">
+    <div class="card-body">
+      <img src="assets/HCI-Logo-Blue-01.jpg" alt="Company Logo" class="logo mb-4">
+      <form>
+        <div class="form-group">
+          <!-- <label for="email">Email</label> -->
+          <input type="email" id="email" class="form-control" placeholder="Enter your email" formControlName="email">
+        </div>
+        <div class="form-group mt-3">
+          <!-- <label for="password">Password</label> -->
+          <input type="password" id="password" class="form-control" placeholder="Enter your password" formControlName="password">
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-3" (click)="login()">Login</button>
+
+        <a href="http://" class="block text-center mt-3">Forgot password</a>
+      </form>
     </div>
   </div>
-  
+</div>
