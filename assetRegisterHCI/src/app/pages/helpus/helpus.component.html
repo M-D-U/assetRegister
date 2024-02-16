@@ -1,1 +1,95 @@
-<p>helpus works!</p>
+<div class="w-full my-6">
+
+  
+  
+    <ul class="flex justify-center border-b">
+        <li class="-mb-px mr-1">
+          <a [class]="selectedTab === 'dashboard' ? 'bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold' : 'bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'" (click)="selectTab('dashboard')">Dashboard</a>
+        </li>
+        <li class="mr-1">
+          <a [class]="selectedTab === 'issues' ? 'bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold' : 'bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'" (click)="selectTab('issues')">Issues</a>
+        </li>
+      </ul>
+    <div class="py-4">
+        <div [hidden]="selectedTab !== 'dashboard'">
+            <!-- Dashboard content goes here -->
+            <!-- For example: <app-dashboard></app-dashboard> -->
+
+            <div class="flex justify-center space-x-4 my-6">
+              <!-- Total Issues Card -->
+              <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Total Issues</h3>
+                <p class="text-2xl font-bold text-blue-600 text-center">50</p>
+              </div>
+            
+              <!-- Resolved Issues Card -->
+              <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Resolved</h3>
+                <p class="text-2xl font-bold text-green-600 text-center">35</p>
+              </div>
+            
+              <!-- Outstanding Issues Card -->
+              <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Outstanding</h3>
+                <p class="text-2xl font-bold text-red-600 text-center">15</p>
+              </div>
+            </div>
+            
+
+            <div class="container mx-auto px-4 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="card p-4 aspect-w-16 aspect-h-9" id="timeline_chart"></div>
+                  <div class="card p-4 aspect-w-16 aspect-h-9" id="pie_chart"></div>
+                  <div class="card p-4 aspect-w-16 aspect-h-9" id="bar_chart"></div>
+                  <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart"></div>
+                </div>
+              </div>
+              
+        </div>
+        <div [hidden]="selectedTab !== 'issues'">
+            <!-- Issues content goes here -->
+            <!-- For example: <app-issues></app-issues> -->
+            <div class="container mt-4">
+                <table class="table table-hover table-striped">
+                    <thead>
+                      <tr>
+                        <th>Date/Time Fault Reported</th>
+                        <th>Service Provider</th>
+                        <th>Fault Reported</th>
+                        <th>Category</th>
+                        <th>Reported By</th>
+                        <th>Reported By Email</th>
+                        <th>Assigned to</th>
+                        <th>Status</th>
+                        <th>Status color</th>
+                        <th>Date/Time Fault Resolved</th>
+                        <th>Time Lapsed in Days</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of sampleData">
+                        <td>{{ data.dateTimeFaultReported }}</td>
+                        <td>{{ data.serviceProvider }}</td>
+                        <td>{{ data.faultReported }}</td>
+                        <td>{{ data.category }}</td>
+                        <td>{{ data.reportedBy }}</td>
+                        <td>{{ data.reportedByEmail }}</td>
+                        <td>{{ data.assignedTo }}</td>
+                        <td>{{ data.status }}</td>
+                        <td><span class="badge bg-{{ data.statusColor }}">{{ data.statusColor }}</span></td>
+                        <td>{{ data.dateTimeFaultResolved }}</td>
+                        <td>{{ data.timeLapsedInDays }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
