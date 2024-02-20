@@ -1,95 +1,180 @@
 <div class="w-full my-6">
 
-  
-  
-    <ul class="flex justify-center border-b">
-        <li class="-mb-px mr-1">
-          <a [class]="selectedTab === 'dashboard' ? 'bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold' : 'bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'" (click)="selectTab('dashboard')">Dashboard</a>
-        </li>
-        <li class="mr-1">
-          <a [class]="selectedTab === 'issues' ? 'bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold' : 'bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'" (click)="selectTab('issues')">Issues</a>
-        </li>
-      </ul>
-    <div class="py-4">
-        <div [hidden]="selectedTab !== 'dashboard'">
-            <!-- Dashboard content goes here -->
-            <!-- For example: <app-dashboard></app-dashboard> -->
 
-            <div class="flex justify-center space-x-4 my-6">
-              <!-- Total Issues Card -->
-              <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Total Issues</h3>
-                <p class="text-2xl font-bold text-blue-600 text-center">50</p>
-              </div>
-            
-              <!-- Resolved Issues Card -->
-              <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Resolved</h3>
-                <p class="text-2xl font-bold text-green-600 text-center">35</p>
-              </div>
-            
-              <!-- Outstanding Issues Card -->
-              <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Outstanding</h3>
-                <p class="text-2xl font-bold text-red-600 text-center">15</p>
-              </div>
-            </div>
-            
 
-            <div class="container mx-auto px-4 py-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="card p-4 aspect-w-16 aspect-h-9" id="timeline_chart"></div>
-                  <div class="card p-4 aspect-w-16 aspect-h-9" id="pie_chart"></div>
-                  <div class="card p-4 aspect-w-16 aspect-h-9" id="bar_chart"></div>
-                  <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart"></div>
-                </div>
-              </div>
-              
+  <ul class="flex justify-center border-b">
+    <li class="-mb-px mr-1">
+      <a [class]="selectedTab === 'dashboard' ? 'bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold' : 'bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'"
+        (click)="selectTab('dashboard')">Dashboard</a>
+    </li>
+    <li class="mr-1">
+      <a [class]="selectedTab === 'issues' ? 'bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold' : 'bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold'"
+        (click)="selectTab('issues')">Issues</a>
+    </li>
+  </ul>
+  <div class="py-4">
+    <div [hidden]="selectedTab !== 'dashboard'">
+      <!-- Dashboard content goes here -->
+      <!-- For example: <app-dashboard></app-dashboard> -->
+
+      <div class="flex justify-center space-x-4 my-6">
+        <!-- Total Issues Card -->
+        <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
+          <h3 class="text-lg font-semibold text-gray-800 mb-2">Total Issues</h3>
+          <p class="text-2xl font-bold text-blue-600 text-center">50</p>
         </div>
-        <div [hidden]="selectedTab !== 'issues'">
-            <!-- Issues content goes here -->
-            <!-- For example: <app-issues></app-issues> -->
-            <div class="container mt-4">
-                <table class="table table-hover table-striped">
-                    <thead>
-                      <tr>
-                        <th>Date/Time Fault Reported</th>
-                        <th>Service Provider</th>
-                        <th>Fault Reported</th>
-                        <th>Category</th>
-                        <th>Reported By</th>
-                        <th>Reported By Email</th>
-                        <th>Assigned to</th>
-                        <th>Status</th>
-                        <th>Status color</th>
-                        <th>Date/Time Fault Resolved</th>
-                        <th>Time Lapsed in Days</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let data of sampleData">
-                        <td>{{ data.dateTimeFaultReported }}</td>
-                        <td>{{ data.serviceProvider }}</td>
-                        <td>{{ data.faultReported }}</td>
-                        <td>{{ data.category }}</td>
-                        <td>{{ data.reportedBy }}</td>
-                        <td>{{ data.reportedByEmail }}</td>
-                        <td>{{ data.assignedTo }}</td>
-                        <td>{{ data.status }}</td>
-                        <td><span class="badge bg-{{ data.statusColor }}">{{ data.statusColor }}</span></td>
-                        <td>{{ data.dateTimeFaultResolved }}</td>
-                        <td>{{ data.timeLapsedInDays }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-            </div>
-            
+
+        <!-- Resolved Issues Card -->
+        <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
+          <h3 class="text-lg font-semibold text-gray-800 mb-2">Resolved</h3>
+          <p class="text-2xl font-bold text-green-600 text-center">35</p>
         </div>
+
+        <!-- Outstanding Issues Card -->
+        <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
+          <h3 class="text-lg font-semibold text-gray-800 mb-2">Outstanding</h3>
+          <p class="text-2xl font-bold text-red-600 text-center">15</p>
+        </div>
+      </div>
+
+
+      <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="card p-4 aspect-w-16 aspect-h-9" id="timeline_chart"></div>
+          <div class="card p-4 aspect-w-16 aspect-h-9" id="pie_chart"></div>
+          <div class="card p-4 aspect-w-16 aspect-h-9" id="bar_chart"></div>
+          <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart"></div>
+        </div>
+      </div>
+
     </div>
+    <div [hidden]="selectedTab !== 'issues'">
+      <!-- Issues content goes here -->
+      <!-- For example: <app-issues></app-issues> -->
+      <div class="container mt-4">
+        <button type="button" class="btn btn-secondary my-3" style="float: inline-end; color: blueviolet;"
+          data-bs-toggle="modal" data-bs-target="#staticBackdrop">Report Issue</button>
+        <table class="table table-hover table-success table-striped">
+          <thead>
+            <tr>
+              <th>Date/Time Fault Reported</th>
+              <th>Service Provider</th>
+              <th>Fault Reported</th>
+              <th>Category</th>
+              <th>Reported By</th>
+              <th>Reported By Email</th>
+              <th>Assigned to</th>
+              <th>Status</th>
+              <th>Status color</th>
+              <th>Date/Time Fault Resolved</th>
+              <th>Time Lapsed in Days</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of sampleData">
+              <td>{{ data.dateTimeFaultReported }}</td>
+              <td>{{ data.serviceProvider }}</td>
+              <td>{{ data.faultReported }}</td>
+              <td>{{ data.category }}</td>
+              <td>{{ data.reportedBy }}</td>
+              <td>{{ data.reportedByEmail }}</td>
+              <td>{{ data.assignedTo }}</td>
+              <td>{{ data.status }}</td>
+              <td><span class="badge bg-{{ data.statusColor }}">{{ data.statusColor }}</span></td>
+              <td>{{ data.dateTimeFaultResolved }}</td>
+              <td>{{ data.timeLapsedInDays }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+  </div>
 </div>
 
 
 
-
-
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Report Issue</h5>
+        <button type="button" class="btn-close primary" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="date-time-fault-reported" class="form-label">Date/Time Fault Reported</label>
+            <input type="text" class="form-control flatpickr" id="date-time-fault-reported"
+              placeholder="Date/Time Fault Reported">
+          </div>
+          <div class="mb-3">
+            <label for="service-provider" class="form-label">Service Provider</label>
+            <select class="form-select" id="service-provider">
+              <option value="">Select a service provider</option>
+              <option value="G4S">G4S</option>
+              <option value="Tontrack">Tontrack</option>
+              <option value="itEvolution">itEvolution</option>
+              <option value="iConnect">iConnect</option>
+              <option value="Seartec">Seartec</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="fault-reported" class="form-label">Fault Reported</label>
+            <input type="text" class="form-control" id="fault-reported" placeholder="Fault Reported">
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category">
+              <option value="">Select a category</option>
+              <option value="Printing">Printing</option>
+              <option value="Connectivity">Connectivity</option>
+              <option value="Hardware">Hardware</option>
+              <option value="Software">Software</option>
+              <option value="User Support">User Support</option>
+              <option value="Telephony">Telephony</option>
+              <option value="Camera Visuals">Camera Visuals</option>
+              <option value="Password Resets">Password Resets</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="reported-by" class="form-label">Reported By</label>
+            <input type="text" class="form-control" id="reported-by" placeholder="Reported By">
+          </div>
+          <div class="mb-3">
+            <label for="reported-by-email" class="form-label">Reported By Email</label>
+            <input type="email" class="form-control" id="reported-by-email" placeholder="Reported By Email">
+          </div>
+          <div class="mb-3">
+            <label for="assigned-to" class="form-label">Assigned To</label>
+            <input type="text" class="form-control" id="assigned-to" placeholder="Assigned To">
+          </div>
+          <!--   <div class="mb-3">
+                      <label for="status" class="form-label">Status</label>
+                      <input type="text" class="form-control" id="status" placeholder="Status">
+                  </div>
+                  <div class="mb-3">
+                      <label for="status-color" class="form-label">Status Color</label>
+                      <input type="text" class="form-control" id="status-color" placeholder="Status Color">
+                  </div>
+                  <div class="mb-3">
+                      <label for="date-time-fault-resolved" class="form-label">Date/Time Fault Resolved</label>
+                      <input type="text" class="form-control" id="date-time-fault-resolved" placeholder="Date/Time Fault Resolved">
+                  </div>
+                  <div class="mb-3">
+                      <label for="time-lapsed-in-days" class="form-label">Time Lapsed in Days</label>
+                      <input type="text" class="form-control" id="time-lapsed-in-days" placeholder="Time Lapsed in Days">
+                  </div> -->
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2"
+          data-bs-dismiss="modal">Close</button>
+        <button type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

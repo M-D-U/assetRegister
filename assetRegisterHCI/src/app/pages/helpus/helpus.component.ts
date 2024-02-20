@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import flatpickr from 'flatpickr';
 
 declare var google: any;
 
@@ -12,8 +13,15 @@ export class HelpusComponent implements OnInit {
   ngOnInit(): void {
     google.charts.load('current', { 'packages': ['timeline', 'corechart'] });
     google.charts.setOnLoadCallback(() => this.drawCharts());
+    this.initFlatpickr();
   }
 
+  initFlatpickr() {
+    flatpickr('.flatpickr', {
+      enableTime: true,
+      dateFormat: "Y-m-d",
+    });
+  }
   selectedTab: string = 'dashboard'; // Initially selected tab
 
 
