@@ -40,10 +40,11 @@
 
       <div class="container mx-auto px-4 py-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="card p-4 aspect-w-16 aspect-h-9" id="timeline_chart"></div>
           <div class="card p-4 aspect-w-16 aspect-h-9" id="pie_chart"></div>
-          <div class="card p-4 aspect-w-16 aspect-h-9" id="bar_chart"></div>
           <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart"></div>
+          <div class="card p-4 aspect-w-16 aspect-h-9" id="bar_chart"></div>
+          <div class="card p-4 aspect-w-16 aspect-h-9" id="timeline_chart"></div>
+          
         </div>
       </div>
 
@@ -54,7 +55,7 @@
       <div class="container mt-4">
         <button type="button" class="btn btn-secondary my-3" style="float: inline-end; color: blueviolet;"
           data-bs-toggle="modal" data-bs-target="#staticBackdrop">Report Issue</button>
-        <table class="table table-hover table-success table-striped">
+        <table class="table table-hover table-striped">
           <thead>
             <tr>
               <th>Date/Time Fault Reported</th>
@@ -107,7 +108,7 @@
         <form>
           <div class="mb-3">
             <label for="date-time-fault-reported" class="form-label">Date/Time Fault Reported</label>
-            <input type="text" class="form-control flatpickr" id="date-time-fault-reported"
+            <input type="text" class="form-control" id="date-time-fault-reported"
               placeholder="Date/Time Fault Reported">
           </div>
           <div class="mb-3">
@@ -151,7 +152,7 @@
             <label for="assigned-to" class="form-label">Assigned To</label>
             <input type="text" class="form-control" id="assigned-to" placeholder="Assigned To">
           </div>
-          <!--   <div class="mb-3">
+           <div class="mb-3">
                       <label for="status" class="form-label">Status</label>
                       <input type="text" class="form-control" id="status" placeholder="Status">
                   </div>
@@ -166,7 +167,7 @@
                   <div class="mb-3">
                       <label for="time-lapsed-in-days" class="form-label">Time Lapsed in Days</label>
                       <input type="text" class="form-control" id="time-lapsed-in-days" placeholder="Time Lapsed in Days">
-                  </div> -->
+                  </div>
         </form>
       </div>
       <div class="modal-footer">

@@ -16,9 +16,13 @@ export class HomeComponent {
       { category: 'Network Equipment', count: 150 }
     ],
     assetDistributionByLocation: [
-      { location: 'Location A', count: 200 },
-      { location: 'Location B', count: 150 },
-      { location: 'Location C', count: 150 }
+      { location: 'Plant', count: 20 },
+      { location: 'West Gate', count: 15 },
+      { location: 'Office Block', count: 50 },
+      { location: 'Security office', count: 15 },
+      { location: 'New Control Room', count: 15 },
+      { location: 'Old Control Room', count: 15 },
+      { location: 'Weight Bridge', count: 15 },
     ]
   };
 

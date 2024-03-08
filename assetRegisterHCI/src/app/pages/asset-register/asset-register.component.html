@@ -4,7 +4,9 @@
       <h2>User Device Information</h2> 
     </div>
     <div class="col-6">
-      <button class="btn btn-success ml-auto" style="float: inline-end;" >Add New Device</button>
+              <th>Status</th>
+              <th>Status</th>
+      <button class="btn btn-success ml-auto" style="float: inline-end;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add New Device</button>
     </div>
   </div>
   
@@ -93,4 +95,85 @@
 </div>
 
   
-  
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="staticBackdropLabel">Report Issue</h5>
+      <button type="button" class="btn-close primary" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="mb-3">
+          <label for="date-time-fault-reported" class="form-label">Date/Time Fault Reported</label>
+          <input type="text" class="form-control flatpickr" id="date-time-fault-reported"
+            placeholder="Date/Time Fault Reported">
+        </div>
+        <div class="mb-3">
+          <label for="service-provider" class="form-label">Service Provider</label>
+          <select class="form-select" id="service-provider">
+            <option value="">Select a service provider</option>
+            <option value="G4S">G4S</option>
+            <option value="Tontrack">Tontrack</option>
+            <option value="itEvolution">itEvolution</option>
+            <option value="iConnect">iConnect</option>
+            <option value="Seartec">Seartec</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="fault-reported" class="form-label">Fault Reported</label>
+          <input type="text" class="form-control" id="fault-reported" placeholder="Fault Reported">
+        </div>
+        <div class="mb-3">
+          <label for="category" class="form-label">Category</label>
+          <select class="form-select" id="category">
+            <option value="">Select a category</option>
+            <option value="Printing">Printing</option>
+            <option value="Connectivity">Connectivity</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Software">Software</option>
+            <option value="User Support">User Support</option>
+            <option value="Telephony">Telephony</option>
+            <option value="Camera Visuals">Camera Visuals</option>
+            <option value="Password Resets">Password Resets</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="reported-by" class="form-label">Reported By</label>
+          <input type="text" class="form-control" id="reported-by" placeholder="Reported By">
+        </div>
+        <div class="mb-3">
+          <label for="reported-by-email" class="form-label">Reported By Email</label>
+          <input type="email" class="form-control" id="reported-by-email" placeholder="Reported By Email">
+        </div>
+        <div class="mb-3">
+          <label for="assigned-to" class="form-label">Assigned To</label>
+          <input type="text" class="form-control" id="assigned-to" placeholder="Assigned To">
+        </div>
+        <!--   <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <input type="text" class="form-control" id="status" placeholder="Status">
+                </div>
+                <div class="mb-3">
+                    <label for="status-color" class="form-label">Status Color</label>
+                    <input type="text" class="form-control" id="status-color" placeholder="Status Color">
+                </div>
+                <div class="mb-3">
+                    <label for="date-time-fault-resolved" class="form-label">Date/Time Fault Resolved</label>
+                    <input type="text" class="form-control" id="date-time-fault-resolved" placeholder="Date/Time Fault Resolved">
+                </div>
+                <div class="mb-3">
+                    <label for="time-lapsed-in-days" class="form-label">Time Lapsed in Days</label>
+                    <input type="text" class="form-control" id="time-lapsed-in-days" placeholder="Time Lapsed in Days">
+                </div> -->
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2"
+        data-bs-dismiss="modal">Close</button>
+      <button type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+    </div>
+  </div>
+</div>
+</div>

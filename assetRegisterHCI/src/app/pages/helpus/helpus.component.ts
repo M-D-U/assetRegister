@@ -170,7 +170,7 @@ export class HelpusComponent implements OnInit {
     ]);
 
     var options = {
-      title: 'Issues by Service Provider'
+      title: 'Issues by category'
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
@@ -187,7 +187,7 @@ export class HelpusComponent implements OnInit {
     ]);
 
     var options = {
-      title: 'Company Performance',
+      title: 'Issues by Service Provider',
       hAxis: { title: 'Year', titleTextStyle: { color: '#333' } },
       vAxis: { minValue: 0 }
     };

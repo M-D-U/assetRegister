@@ -1,49 +1,47 @@
-<!-- my-profile.component.html -->
-<div class="container">
-    <h2>My Profile</h2>
-    
-    <!-- User Information -->
-    <div class="user-info">
-      <img src="../../../assets/HCI-Logo-Blue-01.jpg" alt="User Avatar">
+<div class="container mx-auto px-4 text-center my-6 ">
+  <!-- <h2 class="text-2xl font-bold mb-4">My Profile</h2> -->
+  
+  <!-- User Information -->
+  <div class="flex items-center justify-center space-x-4 mb-6"> <!-- Updated -->
+      <img src="../../../assets/HCI-Logo-Blue-01.jpg" alt="User Avatar" class="h-10 w-10 rounded-full border border-gray-300"> <!-- Updated -->
       <div>
-        <h3>John </h3>
-        <p>Doe</p>
+          <h3 class="text-lg font-semibold">John</h3>
+          <p class="text-sm text-gray-500">Doe</p>
       </div>
-    </div>
-    
-    <!-- Personal Information -->
-    <h3>Personal Information</h3>
-    <form>
-      <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" name="fullName" class="form-control"  disabled placeholder="John Doe">
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone" class="form-control" placeholder="+27139478000">
-      </div>
-      <div class="form-group">
-        <label for="address">Address</label>
-        <textarea id="address" name="address" class="form-control" placeholder="Plot 8, Loopspruit, KwaMlanga, 1022"></textarea>
-      </div>
-    </form>
-    
-    <!-- Change Password -->
-    <h3>Change Password</h3>
-    <form>
-      <div class="form-group">
-        <label for="currentPassword">Current Password</label>
-        <input type="password" id="currentPassword" name="currentPassword" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="newPassword">New Password</label>
-        <input type="password" id="newPassword" name="newPassword" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="confirmPassword">Confirm New Password</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control">
-      </div>
-      <button type="button" class="btn btn-primary" (click)="changePassword()">Change Password</button>
-    </form>
   </div>
   
+  <!-- Personal Information -->
+  <h3 class="text-xl font-bold mb-4">Personal Information</h3>
+  <form>
+      <div class="mb-4">
+          <label for="fullName" class="block mb-2">Full Name</label>
+          <input type="text" id="fullName" name="fullName" class="form-input border border-gray-300" disabled placeholder="John Doe"> <!-- Updated -->
+      </div>
+      <div class="mb-4">
+          <label for="phone" class="block mb-2">Phone</label>
+          <input type="tel" id="phone" name="phone" class="form-input border border-gray-300" placeholder="+27139478000"> <!-- Updated -->
+      </div>
+      <div class="mb-4">
+          <label for="address" class="block mb-2">Address</label>
+          <textarea id="address" name="address" class="form-textarea border border-gray-300" placeholder="Plot 8, Loopspruit, KwaMlanga, 1022"></textarea> <!-- Updated -->
+      </div>
+  </form>
+  
+  <!-- Change Password -->
+  <h3 class="text-xl font-bold mb-4">Change Password</h3>
+  <form>
+      <div class="mb-4">
+          <label for="currentPassword" class="block mb-2">Current Password</label>
+          <input type="password" id="currentPassword" name="currentPassword" class="form-input border border-gray-300"> <!-- Updated -->
+      </div>
+      <div class="mb-4">
+          <label for="newPassword" class="block mb-2">New Password</label>
+          <input type="password" id="newPassword" name="newPassword" class="form-input border border-gray-300"> <!-- Updated -->
+      </div>
+      <div class="mb-4">
+          <label for="confirmPassword" class="block mb-2">Confirm New Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" class="form-input border border-gray-300"> <!-- Updated -->
+      </div>
+      <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md mr-2">Change Password</button>
+  </form>
+</div>

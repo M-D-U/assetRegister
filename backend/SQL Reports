@@ -1,0 +1,51 @@
+// display total number of issues reported this current week 
+
+SELECT COUNT(*) AS TotalIssues FROM it_info WHERE WEEK(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')) = WEEK(CURDATE())
+
+
+
+// display total number of issues reported this current month 
+
+SELECT COUNT(*) AS TotalIssuesMonth
+FROM it_info
+WHERE MONTH(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')) = MONTH(CURDATE())
+AND YEAR(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')) = YEAR(CURDATE());
+
+
+// display the total number of issues by category for the current week along with additional details such as service provider, who reported the issue and their email, who was assigned, and the status
+SELECT 
+    Category,
+    COUNT(*) AS TotalIssues,
+    `Service Provider`,
+    `Reported By`,
+    `Reported By Email`,
+    `Assigned to`,
+    Status
+FROM 
+    it_info
+WHERE 
+    YEARWEEK(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d'), 1) = YEARWEEK(CURDATE(), 1)
+GROUP BY 
+    Category, `Service Provider`, `Reported By`, `Reported By Email`, `Assigned to`, Status;
+
+ //   display the total number of issues by category
+
+ SELECT Category, COUNT(*) AS total_count FROM `it_info` GROUP BY Category ORDER BY `total_count` ASC
+
+// display total number of issues by service provider 
+
+SELECT
+    `Service Provider`,
+    COUNT(*) AS total_count
+FROM
+    `it_info`
+GROUP BY
+    `Service Provider`;
+
+
+// display total number of issues resolved, outstanding and the total count 
+
+SELECT SUM(CASE WHEN `Status` = 'Outstanding' THEN 1 ELSE 0 END) AS outstanding_count, SUM(CASE WHEN `Status` = 'Resolved' THEN 1 ELSE 0 END) AS resolved_count, COUNT(*) AS total_count FROM `it_info`;
+
+// diplay the avaarge time it takes to resolve an issue calculated in days 
+SELECT AVG(DATEDIFF(`Date/Time Fault Resolved`, `Date/Time Fault Reported`)) AS Average_Time_To_Resolve FROM it_info WHERE `Status` = 'resolved';
