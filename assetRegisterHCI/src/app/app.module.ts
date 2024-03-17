@@ -10,11 +10,7 @@ import { UserManagementComponent } from './pages/user-management/user-management
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HelpusComponent } from './pages/helpus/helpus.component';
-// import { ReportsPipe } from './pages/reports.pipe';
-// import { FormsModule } from '@angular/forms';
-// import { ReactiveFormsModule } from '@angular/forms';
-// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http'; 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -23,7 +19,6 @@ const routes: Routes = [
   { path: 'usermanagement', component: UserManagementComponent },
   { path: 'profile', component: ProfileComponent },
 ];
-
 
 @NgModule({
   declarations: [
@@ -35,15 +30,12 @@ const routes: Routes = [
     ProfileComponent,
     NavbarComponent,
     HelpusComponent,
-    // RouterModule
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule,
-    RouterModule.forRoot(routes) // Add this line to import the router module and configure the routes
-  
-    //CommonModule, // Include CommonModule here
+    HttpClientModule, // Include HttpClientModule in the imports array
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
