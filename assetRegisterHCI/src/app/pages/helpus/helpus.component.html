@@ -17,33 +17,51 @@
       <!-- Dashboard content goes here -->
       <!-- For example: <app-dashboard></app-dashboard> -->
 
-      <div class="flex justify-center space-x-4 my-6">
-        <!-- Total Issues Card -->
-        <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">Total Issues</h3>
-          <p class="text-2xl font-bold text-blue-600 text-center">50</p>
-        </div>
-
-        <!-- Resolved Issues Card -->
-        <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">Resolved</h3>
-          <p class="text-2xl font-bold text-green-600 text-center">35</p>
-        </div>
-
-        <!-- Outstanding Issues Card -->
-        <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">Outstanding</h3>
-          <p class="text-2xl font-bold text-red-600 text-center">15</p>
-        </div>
-      </div>
+      
+    
 
 
       <div class="container mx-auto px-4 py-8">
+        <div class="flex justify-center space-x-4 my-6">
+          <!-- Total Issues Card -->
+          <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Total Issues</h3>
+              <p class="text-2xl font-bold text-blue-600 text-center">{{ issue_by_count.total_count }}</p>
+          </div>
+      
+          <!-- Resolved Issues Card -->
+          <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Resolved</h3>
+              <p class="text-2xl font-bold text-green-600 text-center">{{ issue_by_count.resolved_count }}</p>
+          </div>
+      
+          <!-- Outstanding Issues Card -->
+          <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Outstanding</h3>
+              <p class="text-2xl font-bold text-red-600 text-center">{{ issue_by_count.outstanding_count }}</p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Current Week</h3>
+            <p class="text-2xl font-bold text-red-600 text-center">{{ issue_by_current_week.total_issues_this_week }}</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
+          <h3 class="text-lg font-semibold text-gray-800 mb-2">Time to resolve Average</h3>
+          <p class="text-2xl font-bold text-red-600 text-center">{{ issue_by_time_to_resolve.Average_Time_To_Resolve }}</p>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">Reports current month</h3>
+        <p class="text-2xl font-bold text-red-600 text-center">{{ issue_for_the_month.TotalIssuesMonth }}</p>
+    </div>
+      </div>
+      
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="card p-4 aspect-w-16 aspect-h-9" id="pie_chart"></div>
+          <div class="card p-4 aspect-w-16 aspect-h-9" id="trendline_chart"></div>
           <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart"></div>
           <div class="card p-4 aspect-w-16 aspect-h-9" id="bar_chart"></div>
-          <div class="card p-4 aspect-w-16 aspect-h-9" id="timeline_chart"></div>
           
         </div>
       </div>
@@ -55,38 +73,38 @@
       <div class="container mt-4">
         <button type="button" class="btn btn-secondary my-3" style="float: inline-end; color: blueviolet;"
           data-bs-toggle="modal" data-bs-target="#staticBackdrop">Report Issue</button>
-        <table class="table table-hover table-striped">
-          <thead>
-            <tr>
-              <th>Date/Time Fault Reported</th>
-              <th>Service Provider</th>
-              <th>Fault Reported</th>
-              <th>Category</th>
-              <th>Reported By</th>
-              <th>Reported By Email</th>
-              <th>Assigned to</th>
-              <th>Status</th>
-              <th>Status color</th>
-              <th>Date/Time Fault Resolved</th>
-              <th>Time Lapsed in Days</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of sampleData">
-              <td>{{ data.dateTimeFaultReported }}</td>
-              <td>{{ data.serviceProvider }}</td>
-              <td>{{ data.faultReported }}</td>
-              <td>{{ data.category }}</td>
-              <td>{{ data.reportedBy }}</td>
-              <td>{{ data.reportedByEmail }}</td>
-              <td>{{ data.assignedTo }}</td>
-              <td>{{ data.status }}</td>
-              <td><span class="badge bg-{{ data.statusColor }}">{{ data.statusColor }}</span></td>
-              <td>{{ data.dateTimeFaultResolved }}</td>
-              <td>{{ data.timeLapsedInDays }}</td>
-            </tr>
-          </tbody>
-        </table>
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Date/Time Fault Reported</th>
+                <th>Service Provider</th>
+                <th>Fault Reported</th>
+                <th>Category</th>
+                <th>Reported By</th>
+                <th>Reported By Email</th>
+                <th>Assigned to</th>
+                <th>Status</th>
+                <th>Status color</th>
+                <th>Date/Time Fault Resolved</th>
+                <th>Time Lapsed in Days</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of sampleData">
+                <td>{{ data['Date/Time Fault Reported'] }}</td>
+                <td>{{ data['Service Provider'] }}</td>
+                <td>{{ data['Fault Reported'] }}</td>
+                <td>{{ data['Category'] }}</td>
+                <td>{{ data['Reported By'] }}</td>
+                <td>{{ data['Reported By Email'] }}</td>
+                <td>{{ data['Assigned to'] }}</td>
+                <td>{{ data['Status'] }}</td>
+                <td><span class="badge bg-{{ data['Status color'] }}">{{ data['Status color'] }}</span></td>
+                <td>{{ data['Date/Time Fault Resolved'] }}</td>
+                <td>{{ data['Time Lapsed in Days'] }}</td>
+              </tr>
+            </tbody>
+          </table>
 
       </div>
 
