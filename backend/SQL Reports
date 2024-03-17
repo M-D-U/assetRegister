@@ -12,6 +12,9 @@ WHERE MONTH(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')) = MONTH(CURDATE
 AND YEAR(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')) = YEAR(CURDATE());
 
 
+// top reporters of issues 
+SELECT `Reported By` AS reporter_name, `Reported By Email` AS reporter_email, COUNT(*) AS total_reports FROM it_info GROUP BY `Reported By`, `Reported By Email` ORDER BY total_reports DESC LIMIT 5;
+
 // display the total number of issues by category for the current week along with additional details such as service provider, who reported the issue and their email, who was assigned, and the status
 SELECT 
     Category,
