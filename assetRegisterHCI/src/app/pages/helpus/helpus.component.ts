@@ -18,6 +18,8 @@ export class HelpusComponent implements OnInit {
   issue_by_current_week: any = {}
   issue_by_time_to_resolve: any = {};
   issue_for_the_month: any ={};
+  issue_outstaning_list: any[] = [];
+  top_5_issue_reporters : any[] = [];
   selectedTab: string = 'dashboard'; // Initially selected tab
 
   constructor(private issueService: IssueService) {
@@ -36,9 +38,25 @@ export class HelpusComponent implements OnInit {
       this.getTotalIssuesThisCurrentWeek();
       this.getAverageTimetoResolveIssue();
       this.getTotalIssuesThisMonth();
+      this.getTopIssueReportes();
+      this.getOutstandingIssuesList();
     });
   }
 
+  getOutstandingIssuesList(){
+    this.issueService.getTotalOutstandingIssues().subscribe((data: any[]) =>{
+      this.issue_outstaning_list = data;
+      console.log(data);
+    });
+}
+
+  getTopIssueReportes(){
+    this.issueService.getTopReporters().subscribe((data: any[]) =>{
+      this.top_5_issue_reporters = data;
+      console.log(data);
+      
+    })
+  }
   getTotalIssuesThisMonth(){
     this.issueService.getTotalIssuesThisCurrentMonth().subscribe((data: any[]) => {
       this.issue_for_the_month = data;
@@ -76,39 +94,43 @@ export class HelpusComponent implements OnInit {
 
 
   drawTrendlineChart(): void {
-    this.issueService.getIssuesByCountWeekly().subscribe((data: any[]) => {
-      const dataTable = new google.visualization.DataTable();
-      dataTable.addColumn('string', 'Week');
-      dataTable.addColumn('number', 'Total Count');
+    this.issueService.getIssuesByCountMonthly().subscribe((data: any[]) => {
+        const dataTable = new google.visualization.DataTable();
+        dataTable.addColumn('string', 'Month');
+        dataTable.addColumn('number', 'Total Count');
 
-      // Assuming your data contains 'week' property representing the week number
-      data.forEach(item => {
-        const label = `Week ${item.week}`; // Use only the week number
-        dataTable.addRow([label, parseInt(item.total_count)]);
-      });
+        // Iterate through the data and add rows to the DataTable
+        data.forEach(item => {
+            const monthLabel = item.month_name || 'Unknown'; // Use the month name, handle null values
+            dataTable.addRow([monthLabel, parseInt(item.total_count)]);
+        });
 
-      const options = {
-        title: 'Trendline of Issues by Week',
-        legend: { position: 'top' }, // Show legend on top
-        chartArea: { width: '70%', height: '70%' }, // Adjust size as needed
-        trendlines: {
-          0: { type: 'linear', visibleInLegend: true, color: 'green', lineWidth: 3 } // Add trendline
-        },
-        hAxis: {
-          title: 'Week',
-          slantedText: true, // Slant the text for better readability
-          slantedTextAngle: 45 // Angle of the slanted text
-        },
-        vAxis: {
-          title: 'Total Count',
-          minValue: 0
-        }
-      };
+        const options = {
+            title: 'Trendline of Issues by Month',
+            legend: { position: 'top' }, // Show legend on top
+            chartArea: { width: '70%', height: '70%' }, // Adjust size as needed
+            trendlines: {
+                0: { type: 'linear', visibleInLegend: true, color: 'green', lineWidth: 3 } // Add trendline
+            },
+            hAxis: {
+                title: 'Month',
+                slantedText: false, // Disable slanted text
+                textStyle: {
+                    fontSize: 12 // Adjust font size for better readability
+                }
+            },
+            vAxis: {
+                title: 'Total Count',
+                minValue: 0
+            }
+        };
 
-      const chart = new google.visualization.LineChart(document.getElementById('trendline_chart'));
-      chart.draw(dataTable, options);
+        const chart = new google.visualization.LineChart(document.getElementById('trendline_chart'));
+        chart.draw(dataTable, options);
     });
-  }
+}
+
+
 
   drawColumnChart(): void {
     // Fetch issue counts by category from the service
@@ -118,21 +140,23 @@ export class HelpusComponent implements OnInit {
       // Add columns to the DataTable
       dataTable.addColumn('string', 'Category');
       dataTable.addColumn('number', 'Total Count');
-      // dataTable.addColumn({ type: 'string', role: 'style' });
-      dataTable.addColumn({ type: 'string', role: 'annotation' });
+      dataTable.addColumn({ type: 'string', role: 'style' });
+      dataTable.addColumn({ type: 'string', role: 'annotation' }); // Add annotation column
   
       // Iterate through the data and add rows to the DataTable
       data.forEach(item => {
         // Generate a random color for each category
         const color = this.getRandomColor();
-        dataTable.addRow([item.Category, parseInt(item.total_count), color]);
+        // Add a row with category, count, color, and annotation
+        dataTable.addRow([item.Category, parseInt(item.total_count), color, item.Category]); // Use category name as annotation
       });
   
       // Set options for the chart
       const options = {
         title: 'Issues by Category', // Chart title
         legend: { position: 'none' }, // Hide the legend
-        chartArea: { width: '80%', height: '70%' }, // Adjust chart area width and height
+        chartArea: { width: '80%', height: '70%',bar: {groupWidth: "95%"},
+        legend: { position: "none" }, }, // Adjust chart area width and height
         hAxis: {
           title: 'Category', // X-axis title
           textStyle: {
@@ -156,7 +180,9 @@ export class HelpusComponent implements OnInit {
     });
   }
   
-  // Function to generate a random color
+  
+
+  // Function to generate random colors
   getRandomColor(): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -164,18 +190,7 @@ export class HelpusComponent implements OnInit {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
-  }
-  
-
-  // Function to generate random colors
-  /* getRandomColor(): string {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  } */
+  } 
 
   drawBarGraph(): void {
     this.issueService.getIssueCountByResolutionStatus().subscribe((data: any[]) => {

@@ -11,7 +11,7 @@ export class IssueService {
 
   private apiUrl_category = 'http://127.0.0.1:8000/api/issue-counts-by-category'; // displays issues by the category
 
-  private apiUrl_issues_counts_weekly = 'http://127.0.0.1:8000/api/issue-counts-by-week'; // displays number of issues by week
+  private apiUrl_issues_counts_weekly = 'http://127.0.0.1:8000/api/issue-counts-by-month'; // displays number of issues by week
 
   private apiUrl_issues_count_current_week = "http://127.0.0.1:8000/api/total-issues-this-week" //counts the number of issues this current week
 
@@ -25,6 +25,10 @@ export class IssueService {
 
   private apiUrl_total_issues_month = 'http://127.0.0.1:8000/api/total-issues-this-month';
 
+  private apiUrl_issue_report = 'http://127.0.0.1:8000/api/top-reporters';
+
+  private apiUrl_outstanding_issues = 'http://127.0.0.1:8000/api/outstanding-issues';
+
   constructor(private http: HttpClient) { }
 
   getIssues(): Observable<any[]> {
@@ -33,6 +37,13 @@ export class IssueService {
     );
   }
 
+  getTotalOutstandingIssues(){
+    return this.http.get<any[]>(this.apiUrl_outstanding_issues);
+  }
+
+  getTopReporters(){
+    return this.http.get<any[]>(this.apiUrl_issue_report);
+  }
   getTotalIssuesThisCurrentMonth(){
     return this.http.get<any[]>(this.apiUrl_total_issues_month);
   }
@@ -57,7 +68,7 @@ export class IssueService {
     return this.http.get<any[]>(this.apiUrl_counts);
   }
 
-  getIssuesByCountWeekly(){
+  getIssuesByCountMonthly(){
     return this.http.get<any[]>(this.apiUrl_issues_counts_weekly);
   }
 

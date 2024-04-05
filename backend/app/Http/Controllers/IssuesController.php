@@ -123,7 +123,7 @@ class IssuesController extends Controller
     }
 
 
-    public function countIssuesByWeek()
+    /* public function countIssuesByWeek()
     {
         $issueCountsByWeek = DB::table('it_info')
             ->select(DB::raw('YEARWEEK(STR_TO_DATE(`Date/Time Fault Reported`, "%Y-%m-%d")) AS week_number'), DB::raw('COUNT(*) AS total_count'))
@@ -131,20 +131,31 @@ class IssuesController extends Controller
             ->get();
 
         return response()->json($issueCountsByWeek);
+    } */
+    public function getIssueCountsByMonth()
+    {
+        $issueCountsByMonth = DB::select("
+            SELECT MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')) AS month_name, COUNT(*) AS total_count
+            FROM it_info
+            GROUP BY MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d'))
+        ");
+
+        return response()->json($issueCountsByMonth);
     }
-   
 
     public function getIssueCountsByWeek(): JsonResponse
-{
-    $issueCountsByWeek = DB::table('it_info')
-        ->select(DB::raw('YEARWEEK(STR_TO_DATE(`Date/Time Fault Reported`, "%Y-%m-%d")) AS week_number'), 
-                 DB::raw('COUNT(*) AS total_count'))
-        ->groupBy('week_number')
-        ->orderBy('week_number')
-        ->get();
-
-    return response()->json($issueCountsByWeek);
-}
+    {
+        $issueCountsByWeek = DB::table('it_info')
+            ->select(DB::raw('YEARWEEK(STR_TO_DATE(`Date/Time Fault Reported`, "%A, %d %M %Y")) AS week_number'), 
+                     DB::raw('COUNT(*) AS total_count'))
+            ->groupBy('week_number')
+            ->orderBy('week_number')
+            ->get();
+    
+        return response()->json($issueCountsByWeek);
+    }
+    
+    
 
 
 public function getTotalIssuesThisMonth()
@@ -157,4 +168,50 @@ public function getTotalIssuesThisMonth()
 
         return response()->json($totalIssuesMonth);
     }
+
+    public function getTopReporters()
+    {
+        // Execute the SQL command
+        $topReporters = DB::select("
+            SELECT `Reported By` AS reporter_name, `Reported By Email` AS reporter_email, COUNT(*) AS total_reports 
+            FROM it_info 
+            GROUP BY `Reported By`, `Reported By Email` 
+            ORDER BY total_reports DESC 
+            LIMIT 6
+        ");
+
+        // Loop through the top reporters to fetch their issues
+    foreach ($topReporters as $reporter) {
+        // Retrieve issues reported by each reporter
+        $issues = DB::table('it_info')
+                    ->select('Date/Time Fault Reported', 'Service Provider', 'Fault Reported', 'Category', 'Assigned to', 'Status')
+                    ->where('Reported By', $reporter->reporter_name)
+                    ->get();
+
+        // Add issues to the reporter object
+        $reporter->issues = $issues;
+    }
+
+    // Return the results
+    return response()->json($topReporters);
+    }
+
+    public function getOutstandingIssues()
+    {
+        // Execute SQL command to retrieve outstanding issues
+        $outstandingIssues = DB::select("
+            SELECT 
+                `Fault Reported` AS issue_description,
+                `Reported By` AS reporter_name,
+                `Assigned to` AS assigned_to,
+                `Date/Time Fault Reported` AS logged_time,
+                `Service Provider` AS service_provider
+            FROM it_info
+            WHERE `Status` = 'Outstanding'
+        ");
+
+        // Return the results as JSON
+        return response()->json($outstandingIssues);
+    }
+
 }
