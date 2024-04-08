@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IssueService } from '../../issues.service';
+import * as html2pdf from 'html2pdf.js';
+
 
 declare var google: any;
-
+// declare module 'html2pdf.js';
 @Component({
   selector: 'app-helpus',
   templateUrl: './helpus.component.html',
@@ -41,6 +43,18 @@ export class HelpusComponent implements OnInit {
       this.getTopIssueReportes();
       this.getOutstandingIssuesList();
     });
+  }
+
+  generatePdf(): void {
+    const options = {
+      filename: 'helpdesk weekly report.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 5 },
+      jsPDF: { unit: 'in', format: 'legal', orientation: 'landscape' } 
+    };
+
+    const element = document.getElementById('dashboardInformation');
+    html2pdf().from(element).set(options).save();
   }
 
   getOutstandingIssuesList(){
