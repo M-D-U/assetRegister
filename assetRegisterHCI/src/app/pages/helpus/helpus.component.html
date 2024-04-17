@@ -61,41 +61,38 @@
 
         <div class="container my-3">
           <h2 class="fw-bold my-3">Outstanding Issues</h2>
-          <div class="row ">
+          <div class="row">
             <div class="col-md-4" *ngFor="let issue of issue_outstaning_list">
               <div class="card my-3">
                 <div class="card-header">
                   <h5 class="card-title">{{ issue.issue_description }}</h5>
                 </div>
                 <div class="card-body">
-                  <p class="card-text">Reporter: {{ issue.reporter_name }}</p>
-                  <p class="card-text">Assigned to: {{ issue.assigned_to }}</p>
-                  <p class="card-text">Logged Time: {{ issue.logged_time }}</p>
-                  <p class="card-text">Service Provider: {{ issue.service_provider }}</p>
+                  <p class="card-text"><i class="bi bi-person-circle-fill" ></i><span class="fw-bold">Reporter: {{ issue.reporter_name }}</span> </p>
+                  <p class="card-text"><i class="bi bi-person-fill"></i> Assigned to: {{ issue.assigned_to }}</p>
+                  <p class="card-text"><i class="bi bi-clock-fill"></i> Logged Time: {{ issue.logged_time }}</p>
+                  <p class="card-text"><i class="bi bi-briefcase-fill"></i> Service Provider: {{ issue.service_provider }}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         
+        
         <div class="container mt-3">
     <h2 class="fw-bold my-3">Top Reporters</h2>
     <div class="row">
-        <!-- Loop through the response data and create a card for each reporter -->
-        <!-- Replace 'responseData' with the actual variable containing the response data -->
-        <!-- Replace 'reporter' with the variable name you want to use for each reporter -->
-        <!-- Replace 'reporterIndex' with the variable name you want to use for the index of each reporter -->
-        <!-- Replace 'reporterName' with the actual key for the reporter name in the response data -->
-        <!-- Replace 'reporterEmail' with the actual key for the reporter email in the response data -->
-        <!-- Replace 'totalReports' with the actual key for the total reports in the response data -->
         <div *ngFor="let reporter of top_5_issue_reporters; let reporterIndex = index" class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ reporter.reporter_name }}</h5>
-                    <p class="card-text">Email: {{ reporter.reporter_email }}</p>
-                    <p class="card-text">Total Reports: {{ reporter.total_reports }}</p>
-                </div>
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title"><i class="bi bi-person-circle-fill"></i> {{ reporter.reporter_name }}</h5>
             </div>
+            <div class="card-body">
+              <p class="card-text"><i class="bi bi-envelope-fill"></i> Email: {{ reporter.reporter_email }}</p>
+              <p class="card-text"><i class="bi bi-file-earmark-text-fill"></i> Total Reports: {{ reporter.total_reports }}</p>
+            </div>
+          </div>
+          
         </div>
     </div>
 </div>
@@ -104,8 +101,6 @@
 
     </div>
     <div [hidden]="selectedTab !== 'issues'">
-      <!-- Issues content goes here -->
-      <!-- For example: <app-issues></app-issues> -->
       <div class="container mt-4">
         <button type="button" class="btn btn-secondary my-3" style="float: inline-end; color: blueviolet;"
           data-bs-toggle="modal" data-bs-target="#staticBackdrop">Report Issue</button>

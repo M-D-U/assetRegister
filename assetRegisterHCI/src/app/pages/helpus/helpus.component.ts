@@ -169,7 +169,7 @@ export class HelpusComponent implements OnInit {
       const options = {
         title: 'Issues by Category', // Chart title
         legend: { position: 'none' }, // Hide the legend
-        chartArea: { width: '80%', height: '70%',bar: {groupWidth: "95%"},
+        chartArea: { width: '70%', height: '70%',bar: {groupWidth: "95%"},
         legend: { position: "none" }, }, // Adjust chart area width and height
         hAxis: {
           title: 'Category', // X-axis title

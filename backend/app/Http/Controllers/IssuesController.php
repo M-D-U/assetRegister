@@ -135,10 +135,19 @@ class IssuesController extends Controller
     public function getIssueCountsByMonth()
     {
         $issueCountsByMonth = DB::select("
-            SELECT MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')) AS month_name, COUNT(*) AS total_count
-            FROM it_info
-            GROUP BY MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d'))
-        ");
+        SELECT 
+    MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d')) AS month_name, 
+    COUNT(*) AS total_count 
+FROM 
+    it_info 
+GROUP BY 
+    MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d')), 
+    YEAR(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d')),
+    MONTH(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d'))
+ORDER BY 
+    YEAR(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d')), 
+    MONTH(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d'));
+");
 
         return response()->json($issueCountsByMonth);
     }
