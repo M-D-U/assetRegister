@@ -35,6 +35,8 @@ Route::delete('/issues/{id}', [IssuesController::class, 'destroy']);
 Route::get('/outstanding-issues', [IssuesController::class, 'getOutstandingIssues']);
 Route::get('/issue-counts-by-month', [IssuesController::class, 'getIssueCountsByMonth']);
 Route::get('/outstanding-issues', [IssuesController::class, 'getOutstandingIssues']);
+Route::get('/current-week', [IssuesController::class, 'issuesByCategoryCurrentWeek']);//issues the current week
+Route::get('/previous-week', [IssuesController::class, 'issuesByCategoryWeekBeforeCurrentWeek']);//issues the previous week
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

@@ -223,4 +223,68 @@ public function getTotalIssuesThisMonth()
         return response()->json($outstandingIssues);
     }
 
+    public function issuesByCategoryCurrentWeek()
+    {
+        $currentWeekIssues = DB::select("
+            SELECT 
+                category,
+                COUNT(*) AS total_count
+            FROM 
+                it_info 
+            WHERE 
+                YEAR(`Date/Time Fault Reported`) = YEAR(CURDATE()) 
+                AND WEEK(`Date/Time Fault Reported`) = WEEK(CURDATE())
+            GROUP BY 
+                category;
+        ");
+
+        return response()->json($currentWeekIssues);
+    }
+
+    public function issuesByCategoryWeekBeforeCurrentWeek()
+    {
+        $weekBeforeIssues = DB::select("
+        SELECT 
+        category,
+        COUNT(*) AS total_count
+        FROM 
+            it_info 
+        WHERE 
+            YEAR(`Date/Time Fault Reported`) = YEAR(CURDATE()) 
+            AND WEEK(`Date/Time Fault Reported`) = WEEK(CURDATE()) - 1
+        GROUP BY 
+        category;
+        ");
+
+        return response()->json($weekBeforeIssues);
+    }
+
 }
+
+
+
+/* issues by category for the current week 
+SELECT 
+    category,
+    COUNT(*) AS total_count
+FROM 
+    it_info 
+WHERE 
+    YEAR(`Date/Time Fault Reported`) = YEAR(CURDATE()) 
+    AND WEEK(`Date/Time Fault Reported`) = WEEK(CURDATE())
+GROUP BY 
+    category;
+ */
+
+/* 
+ issues by category week before the current week 
+ SELECT 
+    category,
+    COUNT(*) AS total_count
+FROM 
+    it_info 
+WHERE 
+    YEARWEEK(`Date/Time Fault Reported`) = YEARWEEK(CURDATE()) - 1
+GROUP BY 
+    category;
+ */
