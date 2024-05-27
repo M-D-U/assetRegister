@@ -136,17 +136,18 @@ class IssuesController extends Controller
     {
         $issueCountsByMonth = DB::select("
         SELECT 
-    MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d')) AS month_name, 
+    MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')) AS month_name, 
     COUNT(*) AS total_count 
 FROM 
     it_info 
 GROUP BY 
-    MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d')), 
-    YEAR(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d')),
-    MONTH(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d'))
+    MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')), 
+    YEAR(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')),
+    MONTH(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d'))
 ORDER BY 
-    YEAR(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d')), 
-    MONTH(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d'));
+    YEAR(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')), 
+    MONTH(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d'));
+
 ");
 
         return response()->json($issueCountsByMonth);
@@ -259,32 +260,123 @@ public function getTotalIssuesThisMonth()
         return response()->json($weekBeforeIssues);
     }
 
+
+    public function issuesByCategoryJanuary()
+    {
+        $data = DB::select("
+        SELECT 
+        YEAR(`Date/Time Fault Reported`) AS year,
+        MONTH(`Date/Time Fault Reported`) AS month_number,
+        MONTHNAME(`Date/Time Fault Reported`) AS month,
+        category,
+        COUNT(*) AS total_count
+        FROM 
+            it_info 
+        WHERE 
+            YEAR(`Date/Time Fault Reported`) = 2024
+            AND MONTH(`Date/Time Fault Reported`) = 1
+        GROUP BY 
+            year, month_number, month, category
+        ORDER BY 
+            year, month_number;
+        ");
+
+        return response()->json($data);
+    }
+
+
+    public function issuesByCategoryFeb()
+    {
+        $data = DB::select("
+        SELECT 
+        YEAR(`Date/Time Fault Reported`) AS year,
+        MONTH(`Date/Time Fault Reported`) AS month_number,
+        MONTHNAME(`Date/Time Fault Reported`) AS month,
+        category,
+        COUNT(*) AS total_count
+        FROM 
+            it_info 
+        WHERE 
+            YEAR(`Date/Time Fault Reported`) = 2024
+            AND MONTH(`Date/Time Fault Reported`) = 2
+        GROUP BY 
+            year, month_number, month, category
+        ORDER BY 
+            year, month_number;
+        ");
+
+        return response()->json($data);
+    }
+
+
+    public function issuesByCategoryMarch()
+    {
+        $data = DB::select("
+        SELECT 
+        YEAR(`Date/Time Fault Reported`) AS year,
+        MONTH(`Date/Time Fault Reported`) AS month_number,
+        MONTHNAME(`Date/Time Fault Reported`) AS month,
+        category,
+        COUNT(*) AS total_count
+        FROM 
+            it_info 
+        WHERE 
+            YEAR(`Date/Time Fault Reported`) = 2024
+            AND MONTH(`Date/Time Fault Reported`) = 3
+        GROUP BY 
+            year, month_number, month, category
+        ORDER BY 
+            year, month_number;
+        ");
+
+        return response()->json($data);
+    }
+
+
+    public function issuesByCategoryApril()
+    {
+        $data = DB::select("
+        SELECT 
+        YEAR(`Date/Time Fault Reported`) AS year,
+        MONTH(`Date/Time Fault Reported`) AS month_number,
+        MONTHNAME(`Date/Time Fault Reported`) AS month,
+        category,
+        COUNT(*) AS total_count
+        FROM 
+            it_info 
+        WHERE 
+            YEAR(`Date/Time Fault Reported`) = 2024
+            AND MONTH(`Date/Time Fault Reported`) = 4
+        GROUP BY 
+            year, month_number, month, category
+        ORDER BY 
+            year, month_number;
+        ");
+
+        return response()->json($data);
+    }
+
+    public function issuesByCategoryMay()
+    {
+        $data = DB::select("
+        SELECT 
+        YEAR(`Date/Time Fault Reported`) AS year,
+        MONTH(`Date/Time Fault Reported`) AS month_number,
+        MONTHNAME(`Date/Time Fault Reported`) AS month,
+        category,
+        COUNT(*) AS total_count
+        FROM 
+            it_info 
+        WHERE 
+            YEAR(`Date/Time Fault Reported`) = 2024
+            AND MONTH(`Date/Time Fault Reported`) = 5
+        GROUP BY 
+            year, month_number, month, category
+        ORDER BY 
+            year, month_number;
+        ");
+
+        return response()->json($data);
+    }
+
 }
-
-
-
-/* issues by category for the current week 
-SELECT 
-    category,
-    COUNT(*) AS total_count
-FROM 
-    it_info 
-WHERE 
-    YEAR(`Date/Time Fault Reported`) = YEAR(CURDATE()) 
-    AND WEEK(`Date/Time Fault Reported`) = WEEK(CURDATE())
-GROUP BY 
-    category;
- */
-
-/* 
- issues by category week before the current week 
- SELECT 
-    category,
-    COUNT(*) AS total_count
-FROM 
-    it_info 
-WHERE 
-    YEARWEEK(`Date/Time Fault Reported`) = YEARWEEK(CURDATE()) - 1
-GROUP BY 
-    category;
- */

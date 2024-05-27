@@ -18,49 +18,67 @@
       <div class="container mx-auto px-4 py-8">
         <div class="flex justify-center space-x-4 my-6">
           <!-- Total Issues Card -->
-          <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Total Issues</h3>
+          <div class="bg-white rounded-lg  p-4 max-w-[150px]">
+              <h3 class="text-lg font-semibold text-gray-600 mb-2">Total Issues</h3>
               <p class="text-2xl font-bold text-blue-600 text-center">{{ issue_by_count.total_count }}</p>
           </div>
       
           <!-- Resolved Issues Card -->
-          <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Resolved</h3>
+          <div class="bg-white rounded-lg  p-4 max-w-[150px]">
+              <h3 class="text-lg font-semibold text-gray-600 mb-2">Resolved</h3>
               <p class="text-2xl font-bold text-green-600 text-center">{{ issue_by_count.resolved_count }}</p>
           </div>
       
           <!-- Outstanding Issues Card -->
-          <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">Outstanding</h3>
+          <div class="bg-white rounded-lg  p-4 max-w-[150px]">
+              <h3 class="text-lg font-semibold text-gray-600 mb-2">Outstanding</h3>
               <p class="text-2xl font-bold text-red-600 text-center">{{ issue_by_count.outstanding_count }}</p>
           </div>
 
-          <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
-            <h3 class="text-lg font-semibold text-gray-800 mb-2">Current Week</h3>
+          <div class="bg-white rounded-lg p-4 max-w-[150px]">
+            <h3 class="text-lg font-semibold text-gray-600 mb-2">Current Week</h3>
             <p class="text-2xl font-bold text-red-600 text-center">{{ issue_by_current_week.total_issues_this_week }}</p>
-        </div>
+          </div>
 
-        <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">Time to resolve Average</h3>
-          <p class="text-2xl font-bold text-red-600 text-center">{{ issue_by_time_to_resolve.Average_Time_To_Resolve }}</p>
-      </div>
+          <div class="bg-white rounded-lg  p-4 max-w-[150px]" style="border-color: 1px solid blue;">
+            <h3 class="text-lg font-semibold text-gray-600 mb-2">Resolution Time Avg</h3>
+            <p class="text-2xl font-bold text-red-600 text-center">{{ issue_by_time_to_resolve.Average_Time_To_Resolve }}</p>
+          </div>
 
-      <div class="bg-white rounded-lg shadow-md p-4 max-w-[150px]">
-        <h3 class="text-lg font-semibold text-gray-800 mb-2">Reports current month</h3>
+      <div class="bg-white rounded-lg  p-4 max-w-[150px]">
+        <h3 class="text-lg font-semibold text-gray-600 mb-2">Reports current month</h3>
         <p class="text-2xl font-bold text-red-600 text-center">{{ issue_for_the_month.TotalIssuesMonth }}</p>
     </div>
       </div>
-      
+
+      <!-- stats for 2024 column charts -->
+      <h2 class="fw-bold my-3">Categorical reports by month 2024</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart1"></div>
+        <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart2"></div>   
+        <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart3"></div> 
+        <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart4"></div> 
+        <br>  
+        <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart5"></div> 
+      </div>
+
+      <h2 class="fw-bold my-3">General reports</h2>
+      <!-- regular stats -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="card p-4 aspect-w-16 aspect-h-9" id="pie_chart"></div>
           <div class="card p-4 aspect-w-16 aspect-h-9" id="trendline_chart"></div>
-          <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart"></div>
           <div class="card p-4 aspect-w-16 aspect-h-9" id="bar_chart"></div>
-          
+          <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart"></div>
+          <!-- <div class="card p-4 aspect-w-16 aspect-h-9" id="column_chart1"></div> -->
+          <div class="card p-4 aspect-w-16 aspect-h-9" id="stacked_bar_chart"></div>      
         </div>
 
         <div class="container my-3">
           <h2 class="fw-bold my-3">Outstanding Issues</h2>
+          <div *ngIf="noIssuesMessageVisible">
+            <p>No outstanding issues found.</p>
+        </div>
           <div class="row">
             <div class="col-md-4" *ngFor="let issue of issue_outstaning_list">
               <div class="card my-3">
@@ -96,6 +114,20 @@
         </div>
     </div>
 </div>
+
+
+<!-- <div class="my-3" *ngFor="let item of issuesByCategoryTHisMOnth">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ item.month }} {{ item.year }}</h5>
+      <p class="card-text">
+        <strong>Category:</strong> {{ item.category }}<br>
+        <strong>Total Count:</strong> {{ item.total_count }}
+      </p>
+    </div>
+  </div>
+</div>
+ -->
 
       </div>
 

@@ -29,12 +29,53 @@ export class IssueService {
 
   private apiUrl_outstanding_issues = 'http://127.0.0.1:8000/api/outstanding-issues';
 
+  private apiUrl_previous_week = 'http://127.0.0.1:8000/api/previous-week';
+  
+  private apiUrl_current_week = 'http://127.0.0.1:8000/api/current-week';
+   
+  private apiUrl_current_year_issue_By_category_january = 'http://127.0.0.1:8000/api/issues-by-category-january';
+
+  private apiUrl_current_year_issue_By_category_feb = 'http://127.0.0.1:8000/api/issues-by-category-feb';
+
+  private apiUrl_current_year_issue_By_category_march = 'http://127.0.0.1:8000/api/issues-by-category-march';
+
+  private apiUrl_current_year_issue_By_category_april = 'http://127.0.0.1:8000/api/issues-by-category-april';
+
+  private apiUrl_current_year_issue_By_category_may = 'http://127.0.0.1:8000/api/issues-by-category-may';
+
   constructor(private http: HttpClient) { }
 
   getIssues(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl_issues).pipe(
       map((data: any[]) => data) // No need for mapping if the response is already in the correct format
     );
+  }
+
+  getTopPreviousWeekIssues(){
+    return this.http.get<any[]>(this.apiUrl_previous_week);
+  }
+
+  getIssuesByCategoryForCurrentYearJanuary(){
+    return this.http.get<any[]>(this.apiUrl_current_year_issue_By_category_january);
+  }
+
+  getIssuesByCategoryForCurrentYearFeb(){
+    return this.http.get<any[]>(this.apiUrl_current_year_issue_By_category_feb);
+  }
+  
+  getIssuesByCategoryForCurrentYearMarch(){
+    return this.http.get<any[]>(this.apiUrl_current_year_issue_By_category_march);
+  }
+
+  getIssuesByCategoryForCurrentYearApril(){
+    return this.http.get<any[]>(this.apiUrl_current_year_issue_By_category_april);
+  }
+
+  getIssuesByCategoryForCurrentYearMay(){
+    return this.http.get<any[]>(this.apiUrl_current_year_issue_By_category_may);
+  }
+  getTopCurrentWeekIssues(){
+    return this.http.get<any[]>(this.apiUrl_current_week);
   }
 
   getTotalOutstandingIssues(){

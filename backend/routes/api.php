@@ -37,6 +37,11 @@ Route::get('/issue-counts-by-month', [IssuesController::class, 'getIssueCountsBy
 Route::get('/outstanding-issues', [IssuesController::class, 'getOutstandingIssues']);
 Route::get('/current-week', [IssuesController::class, 'issuesByCategoryCurrentWeek']);//issues the current week
 Route::get('/previous-week', [IssuesController::class, 'issuesByCategoryWeekBeforeCurrentWeek']);//issues the previous week
+Route::get('issues-by-category-january', [IssuesController::class, 'issuesByCategoryJanuary']);
+Route::get('issues-by-category-feb', [IssuesController::class, 'issuesByCategoryFeb']);
+Route::get('issues-by-category-march', [IssuesController::class, 'issuesByCategoryMarch']);
+Route::get('issues-by-category-april', [IssuesController::class, 'issuesByCategoryApril']);
+Route::get('issues-by-category-may', [IssuesController::class, 'issuesByCategoryMay']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
