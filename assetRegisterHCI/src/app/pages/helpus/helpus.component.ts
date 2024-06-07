@@ -66,7 +66,7 @@ export class HelpusComponent implements OnInit {
     const options = {
       filename: 'helpdesk weekly report.pdf',
       image: { type: 'jpeg', quality: 1 },
-      html2canvas: { scale: 5 },
+      html2canvas: { scale: 1 },
       jsPDF: { unit: 'in', format: 'legal', orientation: 'landscape' } 
     };
 
