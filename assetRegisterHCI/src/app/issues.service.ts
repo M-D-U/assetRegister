@@ -43,6 +43,8 @@ export class IssueService {
 
   private apiUrl_current_year_issue_By_category_may = 'http://127.0.0.1:8000/api/issues-by-category-may';
 
+  private apiUrl_current_year_issue_By_category_june = 'http://127.0.0.1:8000/api/issues-by-category-june';
+
   constructor(private http: HttpClient) { }
 
   getIssues(): Observable<any[]> {
@@ -74,6 +76,11 @@ export class IssueService {
   getIssuesByCategoryForCurrentYearMay(){
     return this.http.get<any[]>(this.apiUrl_current_year_issue_By_category_may);
   }
+
+  getIssuesByCategoryForCurrentYearJune(){
+    return this.http.get<any[]>(this.apiUrl_current_year_issue_By_category_june);
+  }
+
   getTopCurrentWeekIssues(){
     return this.http.get<any[]>(this.apiUrl_current_week);
   }

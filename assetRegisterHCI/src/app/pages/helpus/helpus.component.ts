@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IssueService } from '../../issues.service';
 import * as html2pdf from 'html2pdf.js';
 import { forkJoin } from 'rxjs';
+import { Chart, ChartItem } from 'chart.js/auto';
 
 
 declare var google: any;
@@ -32,6 +33,7 @@ export class HelpusComponent implements OnInit {
   issuesByCategoryTHisMOnthMar : any[] = [];
   issuesByCategoryTHisMOntApr : any[] = [];
   issuesByCategoryTHisMOntMay : any[] = [];
+  issuesByCategoryTHisMOntJune : any[] = [];
   constructor(private issueService: IssueService) {
   }
 
@@ -47,6 +49,7 @@ export class HelpusComponent implements OnInit {
       this.drawCharts3();
       this.drawCharts4();
       this.drawCharts5();
+      this.drawCharts6();
       this.drawStackedBarChart();
       this.drawTrendlineChart();
       this.getIussueByStatus();
@@ -66,7 +69,7 @@ export class HelpusComponent implements OnInit {
     const options = {
       filename: 'helpdesk weekly report.pdf',
       image: { type: 'jpeg', quality: 1 },
-      html2canvas: { scale: 1 },
+      html2canvas: { scale: 5 },
       jsPDF: { unit: 'in', format: 'legal', orientation: 'landscape' } 
     };
 
@@ -183,6 +186,12 @@ getOutstandingIssuesList() {
     });
   }
 
+  getCurrentYearIssuesByCategoryFunctionJune(){
+    this.issueService.getIssuesByCategoryForCurrentYearMay().subscribe((data: any[]) => {
+      this.issuesByCategoryTHisMOntMay = data;
+      console.log(data, 'issues by the year');
+    });
+  }
 drawBarChart(data: any[]): void {
   // Create DataTable
   const dataTable = new google.visualization.DataTable();
@@ -588,6 +597,56 @@ drawCharts5(): void {
       chart.draw(dataTable, options);
   });
 }
+
+drawCharts6(): void {
+  // Fetch issue counts by category from the service
+  this.issueService.getIssuesByCategoryForCurrentYearJune().subscribe((data: any[]) => {
+      // Sort the data array by category name
+      data.sort((a, b) => a.category.localeCompare(b.category));
+
+      // Create a new DataTable
+      const dataTable = new google.visualization.DataTable();
+      // Add columns to the DataTable
+      dataTable.addColumn('string', 'Category');
+      dataTable.addColumn('number', 'Total Count');
+      dataTable.addColumn({ type: 'string', role: 'style' });
+      dataTable.addColumn({ type: 'string', role: 'annotation' }); // Add annotation column
+
+      // Iterate through the data and add rows to the DataTable
+      data.forEach(item => {
+          // Get color for the category using the getCategoryColor function
+          const color = this.getCategoryColor(item.category);
+          // Add a row with category, count, color, and annotation
+          dataTable.addRow([item.category, parseInt(item.total_count), color, item.category]); // Use category name as annotation
+      });
+
+      // Set options for the chart
+      const options = {
+          title: 'Issues by Category June', // Chart title
+          legend: { position: 'none' }, // Hide the legend
+          chartArea: { width: '70%', height: '70%', bar: { groupWidth: "95%" }, legend: { position: "none" } }, // Adjust chart area width and height
+          hAxis: {
+              title: 'Category', // X-axis title
+              textStyle: {
+                  bold: true,
+                  fontSize: 12,
+                  color: '#4d4d4d' // Text color for X-axis labels
+              },
+              slantedText: true, // Slant X-axis labels
+              slantedTextAngle: 45 // Angle for slanted X-axis labels
+          },
+          vAxis: {
+              title: 'Total Count', // Y-axis title
+              minValue: 0 // Minimum value for Y-axis
+          },
+          isStacked: true // Enable stacking of bars
+      };
+
+      // Instantiate and draw the ColumnChart
+      const chart = new google.visualization.ColumnChart(document.getElementById('column_chart6'));
+      chart.draw(dataTable, options);
+  });
+}
 // Adjusted drawCharts4 function
 /* drawCharts4(): void {
   // Fetch issue counts by category from the service
@@ -689,45 +748,63 @@ drawStackedBarChart(): void {
 }
 
 
-  drawTrendlineChart(): void {
-    this.issueService.getIssuesByCountMonthly().subscribe((data: any[]) => {
-        const dataTable = new google.visualization.DataTable();
-        console.log(data);
-        
-        dataTable.addColumn('string', 'Month');
-        dataTable.addColumn('number', 'Total Count');
+drawTrendlineChart(): void {
+  this.issueService.getIssuesByCountMonthly().subscribe((data: any[]) => {
+    // Extract labels and data from the service response
+    const labels = data.map(item => item.month_name || 'Unknown');
+    const dataPoints = data.map(item => parseInt(item.total_count));
 
-        // Iterate through the data and add rows to the DataTable
-        data.forEach(item => {
-            const monthLabel = item.month_name || 'Unknown'; // Use the month name, handle null values
-            dataTable.addRow([monthLabel, parseInt(item.total_count)]);
-        });
-
-        const options = {
-            title: 'Trendline of Issues by Month',
-            legend: { position: 'top' }, // Show legend on top
-            chartArea: { width: '70%', height: '70%' }, // Adjust size as needed
-            trendlines: {
-                0: { type: 'linear', visibleInLegend: true, color: 'green', lineWidth: 3 } // Add trendline
+    // Get the canvas element
+    const canvas = document.getElementById('trendline_chart') as HTMLCanvasElement;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        // Create the chart
+        new Chart(ctx as ChartItem, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Total Count',
+              data: dataPoints,
+              borderColor: 'green',
+              fill: false,
+              tension: 0,
+              borderWidth: 3
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top'
+              },
+              title: {
+                display: true,
+                text: 'Trendline of Issues by Month'
+              }
             },
-            hAxis: {
-                title: 'Month',
-                slantedText: false, // Disable slanted text
-                textStyle: {
-                    fontSize: 12 // Adjust font size for better readability
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'Month'
                 }
-            },
-            vAxis: {
-                title: 'Total Count',
-                minValue: 0
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: 'Total Count'
+                },
+                min: 0
+              }
             }
-        };
-
-        const chart = new google.visualization.LineChart(document.getElementById('trendline_chart'));
-        chart.draw(dataTable, options);
-    });
+          }
+        });
+      }
+    }
+  });
 }
-
 
 
   drawColumnChart(): void {

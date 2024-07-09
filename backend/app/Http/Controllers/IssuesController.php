@@ -133,25 +133,25 @@ class IssuesController extends Controller
         return response()->json($issueCountsByWeek);
     } */
     public function getIssueCountsByMonth()
-    {
-        $issueCountsByMonth = DB::select("
+{
+    $issueCountsByMonth = DB::select("
         SELECT 
-    MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')) AS month_name, 
-    COUNT(*) AS total_count 
-FROM 
-    it_info 
-GROUP BY 
-    MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')), 
-    YEAR(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')),
-    MONTH(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d'))
-ORDER BY 
-    YEAR(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d')), 
-    MONTH(STR_TO_DATE(`Date/Time Fault Reported`, '%Y-%m-%d'));
+            MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d')) AS month_name, 
+            COUNT(*) AS total_count 
+        FROM 
+            it_info 
+        GROUP BY 
+            MONTHNAME(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d')), 
+            YEAR(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d')),
+            MONTH(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d'))
+        ORDER BY 
+            YEAR(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d')), 
+            MONTH(STR_TO_DATE(`Date/Time Fault Reported`, '%Y/%m/%d'));
+    ");
 
-");
+    return response()->json($issueCountsByMonth);
+}
 
-        return response()->json($issueCountsByMonth);
-    }
 
     public function getIssueCountsByWeek(): JsonResponse
     {
@@ -370,6 +370,30 @@ public function getTotalIssuesThisMonth()
         WHERE 
             YEAR(`Date/Time Fault Reported`) = 2024
             AND MONTH(`Date/Time Fault Reported`) = 5
+        GROUP BY 
+            year, month_number, month, category
+        ORDER BY 
+            year, month_number;
+        ");
+
+        return response()->json($data);
+    }
+
+
+    public function issuesByCategoryJune()
+    {
+        $data = DB::select("
+        SELECT 
+        YEAR(`Date/Time Fault Reported`) AS year,
+        MONTH(`Date/Time Fault Reported`) AS month_number,
+        MONTHNAME(`Date/Time Fault Reported`) AS month,
+        category,
+        COUNT(*) AS total_count
+        FROM 
+            it_info 
+        WHERE 
+            YEAR(`Date/Time Fault Reported`) = 2024
+            AND MONTH(`Date/Time Fault Reported`) = 6
         GROUP BY 
             year, month_number, month, category
         ORDER BY 
