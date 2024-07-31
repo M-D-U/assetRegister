@@ -34,6 +34,7 @@ export class HelpusComponent implements OnInit {
   issuesByCategoryTHisMOntApr : any[] = [];
   issuesByCategoryTHisMOntMay : any[] = [];
   issuesByCategoryTHisMOntJune : any[] = [];
+  issuesByCategoryTHisMOntJuly : any[] = [];
   constructor(private issueService: IssueService) {
   }
 
@@ -50,6 +51,7 @@ export class HelpusComponent implements OnInit {
       this.drawCharts4();
       this.drawCharts5();
       this.drawCharts6();
+      this.drawCharts7();
       this.drawStackedBarChart();
       this.drawTrendlineChart();
       this.getIussueByStatus();
@@ -188,10 +190,19 @@ getOutstandingIssuesList() {
 
   getCurrentYearIssuesByCategoryFunctionJune(){
     this.issueService.getIssuesByCategoryForCurrentYearMay().subscribe((data: any[]) => {
-      this.issuesByCategoryTHisMOntMay = data;
+      this.issuesByCategoryTHisMOntJune = data;
       console.log(data, 'issues by the year');
     });
   }
+
+  getCurrentYearIssuesByCategoryFunctionJuly(){
+    this.issueService.getIssuesByCategoryForCurrentYearMay().subscribe((data: any[]) => {
+      this.issuesByCategoryTHisMOntJuly = data;
+      console.log(data, 'issues by the year');
+    });
+  }
+
+
 drawBarChart(data: any[]): void {
   // Create DataTable
   const dataTable = new google.visualization.DataTable();
@@ -644,6 +655,57 @@ drawCharts6(): void {
 
       // Instantiate and draw the ColumnChart
       const chart = new google.visualization.ColumnChart(document.getElementById('column_chart6'));
+      chart.draw(dataTable, options);
+  });
+}
+
+
+drawCharts7(): void {
+  // Fetch issue counts by category from the service
+  this.issueService.getIssuesByCategoryForCurrentYearJuly().subscribe((data: any[]) => {
+      // Sort the data array by category name
+      data.sort((a, b) => a.category.localeCompare(b.category));
+
+      // Create a new DataTable
+      const dataTable = new google.visualization.DataTable();
+      // Add columns to the DataTable
+      dataTable.addColumn('string', 'Category');
+      dataTable.addColumn('number', 'Total Count');
+      dataTable.addColumn({ type: 'string', role: 'style' });
+      dataTable.addColumn({ type: 'string', role: 'annotation' }); // Add annotation column
+
+      // Iterate through the data and add rows to the DataTable
+      data.forEach(item => {
+          // Get color for the category using the getCategoryColor function
+          const color = this.getCategoryColor(item.category);
+          // Add a row with category, count, color, and annotation
+          dataTable.addRow([item.category, parseInt(item.total_count), color, item.category]); // Use category name as annotation
+      });
+
+      // Set options for the chart
+      const options = {
+          title: 'Issues by Category July', // Chart title
+          legend: { position: 'none' }, // Hide the legend
+          chartArea: { width: '70%', height: '70%', bar: { groupWidth: "95%" }, legend: { position: "none" } }, // Adjust chart area width and height
+          hAxis: {
+              title: 'Category', // X-axis title
+              textStyle: {
+                  bold: true,
+                  fontSize: 12,
+                  color: '#4d4d4d' // Text color for X-axis labels
+              },
+              slantedText: true, // Slant X-axis labels
+              slantedTextAngle: 45 // Angle for slanted X-axis labels
+          },
+          vAxis: {
+              title: 'Total Count', // Y-axis title
+              minValue: 0 // Minimum value for Y-axis
+          },
+          isStacked: true // Enable stacking of bars
+      };
+
+      // Instantiate and draw the ColumnChart
+      const chart = new google.visualization.ColumnChart(document.getElementById('column_chart7'));
       chart.draw(dataTable, options);
   });
 }

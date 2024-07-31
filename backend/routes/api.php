@@ -43,6 +43,7 @@ Route::get('issues-by-category-march', [IssuesController::class, 'issuesByCatego
 Route::get('issues-by-category-april', [IssuesController::class, 'issuesByCategoryApril']);
 Route::get('issues-by-category-may', [IssuesController::class, 'issuesByCategoryMay']);
 Route::get('issues-by-category-june', [IssuesController::class, 'issuesByCategoryJune']);
+Route::get('issues-by-category-july', [IssuesController::class, 'issuesByCategoryJuly']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
