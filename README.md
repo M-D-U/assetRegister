@@ -6,7 +6,7 @@ Here’s a detailed `README.md` file for your GitHub repository:
 
 ---
 
-# Project Name
+# Asset Register
 
 This project is a web application developed using Angular for the frontend and Laravel for the backend. It provides a robust and scalable solution with modern frameworks to handle the client and server-side logic.
 
